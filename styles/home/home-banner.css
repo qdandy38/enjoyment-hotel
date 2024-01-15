@@ -1,0 +1,21 @@
+@import 'tailwindcss/components';
+@layer components {
+  .home-banner {
+    &-content {
+      @apply w-full
+      pt-[236px]
+      px-20
+      flex
+      items-center
+      gap-[200px];
+      &-title {
+        @apply flex
+        flex-col
+        items-start
+        gap-10
+        flex-1
+        w-1/2;
+      }
+    }
+  }
+}

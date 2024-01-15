@@ -1,0 +1,61 @@
+@import 'tailwindcss/components';
+@layer components {
+  .home-intro {
+    @apply relative
+    w-full
+    py-[120px]
+    px-[312px]
+    bg-primary-10
+    flex
+    items-start
+    gap-20;
+    &-title {
+      @apply w-[140px]
+      flex
+      flex-col
+      items-start
+      gap-10
+      flex-shrink-0;
+      &-underline {
+        @apply w-full
+        h-[2px]
+        bg-gradient-to-r
+        from-primary
+        to-white;
+      }
+    }
+    &-card {
+      @apply flex
+      flex-col
+      items-start
+      gap-10
+      flex-1;
+      &-item {
+        @apply flex
+        items-center
+        self-stretch
+        gap-6;
+        &-content {
+          @apply text-black
+          flex
+          flex-col
+          justify-center
+          items-start
+          gap-6
+          flex-1;
+          h3 {
+            @apply font-bold tracking-widest;
+          }
+          p {
+            @apply tracking-[0.32px];
+          }
+        }
+      }
+    }
+    &-dot {
+      @apply w-[200px]
+      h-[200px]
+      absolute;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .container {
+    /* @apply min-h-[calc(100vh-86px)] mx-auto pt-[72px] overflow-hidden md:pt-16 lg:pt-[120px] lg:min-h-[calc(100vh-68px)]; */
+    @apply max-w-none
+    overflow-hidden
+    mx-auto
+    min-h-screen
+    pt-[72px]
+    md:pt-[96px]
+    lg:pt-[120px];
+  }
+}
