@@ -1,13 +1,19 @@
 @import 'tailwindcss/components';
 @layer components {
   .home-banner {
+    @apply w-full
+    min-h-screen;
     &-content {
       @apply w-full
-      pt-[236px]
+      py-[71px]
+      lg:py-[166px]
       px-20
       flex
-      items-center
-      gap-[200px];
+      flex-col
+      gap-10
+      lg:flex-row
+      lg:items-center 
+      lg:gap-[200px];
       &-title {
         @apply flex
         flex-col
