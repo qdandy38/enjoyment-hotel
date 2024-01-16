@@ -3,19 +3,33 @@
   .home-intro {
     @apply relative
     w-full
-    py-[120px]
-    px-[312px]
+    py-20
+    px-3
+    lg:py-[120px]
+    lg:px-[312px]
     bg-primary-10
     flex
+    flex-col
+    lg:flex-row
     items-start
-    gap-20;
+    gap-10
+    lg:gap-20;
     &-title {
       @apply w-[140px]
       flex
       flex-col
       items-start
-      gap-10
+      gap-6
+      lg:gap-10
       flex-shrink-0;
+      h1 {
+        @apply text-primary
+        font-bold
+        text-3.5xl
+        tracking-[1.6px]
+        lg:text-5xl
+        lg:tracking-[2.4px];
+      }
       &-underline {
         @apply w-full
         h-[2px]
@@ -32,7 +46,12 @@
       flex-1;
       &-item {
         @apply flex
-        items-center
+        flex-col
+        lg:flex-row
+        justify-center
+        items-start
+        lg:justify-start
+        lg:items-center
         self-stretch
         gap-6;
         &-content {
@@ -41,20 +60,23 @@
           flex-col
           justify-center
           items-start
-          gap-6
+          gap-2
+          lg:gap-6
           flex-1;
           h3 {
-            @apply font-bold tracking-widest;
+            @apply font-bold text-2.5xl lg:text-3.5xl tracking-[1.4px] lg:tracking-widest;
           }
           p {
-            @apply tracking-[0.32px];
+            @apply text-base tracking-[0.32px];
           }
         }
       }
     }
     &-dot {
-      @apply w-[200px]
-      h-[200px]
+      @apply w-[100px]
+      h-[100px]
+      lg:w-[200px]
+      lg:h-[200px]
       absolute;
     }
   }

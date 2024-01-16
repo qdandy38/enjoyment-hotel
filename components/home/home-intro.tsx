@@ -2,13 +2,18 @@ import Image from 'next/image';
 import News1 from '@/assets/images/pc/news1.png';
 import News2 from '@/assets/images/pc/news2.png';
 import News3 from '@/assets/images/pc/news3.png';
+import News1_mobile from '@/assets/images/mobile/news1.png';
+import News2_mobile from '@/assets/images/mobile/news2.png';
+import News3_mobile from '@/assets/images/mobile/news3.png';
 import Dot_pc from '@/assets/images/pc/dot.png';
 import Dot_mobile from '@/assets/images/mobile/dot.png';
 export default function HomeIntro() {
   return (
     <div className="home-intro">
       <div className="home-intro-title">
-        <h1 className="font-bold tracking-[2.4px] text-primary">最新消息</h1>
+        <h1>
+          最新<br></br>消息
+        </h1>
         <div className="home-intro-title-underline" />
       </div>
       <div className="home-intro-card">
@@ -17,7 +22,7 @@ export default function HomeIntro() {
             src={News1}
             alt="intro-img"
             width={474}
-            className="rounded-lg "
+            className="rounded-lg"
           />
           <div className="home-intro-card-item-content">
             <h3>秋季旅遊，豪華享受方案</h3>
@@ -58,12 +63,12 @@ export default function HomeIntro() {
       <Image
         src={Dot_pc}
         alt="dot"
-        className="home-intro-dot right-[180px] top-[100px]"
+        className="home-intro-dot right-6 top-10 lg:right-[180px] lg:top-[100px]"
       />
       <Image
         src={Dot_pc}
         alt="dot"
-        className="home-intro-dot left-[200px] bottom-[-80px]"
+        className="home-intro-dot left-6 bottom-[-60px] lg:left-[200px] lg:bottom-[-80px]"
       />
     </div>
   );
