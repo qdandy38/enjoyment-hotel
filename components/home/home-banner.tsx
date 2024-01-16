@@ -3,11 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, type Variants, useAnimation } from 'framer-motion';
 import Banner_pc from '@/assets/images/pc/banner.png';
 import Banner_mobile from '@/assets/images/mobile/banner.png';
-// import Image from 'next/image';
-// import Logo from '@/assets/images/logo.png';
-import Header from '@/components/layout/header';
-
-import useResize from '@/hooks/useResize';
+import { useCommonCtx } from '@/providers/common-provider';
 
 const btnContainerVariants: Variants = {
   normal: {
@@ -30,6 +26,7 @@ const btnLineVariants: Variants = {
   },
 };
 export default function HomeBanner() {
+  const { isMobile } = useCommonCtx();
   const controls = useAnimation();
   const [bgImage, setBgImage] = useState(Banner_pc.src);
   const bgStyle = {
@@ -39,16 +36,9 @@ export default function HomeBanner() {
     backgroundRepeat: 'no-repeat',
   };
 
-  const handleResize = () => {
-    const bg = window.innerWidth < 1024 ? Banner_mobile.src : Banner_pc.src;
-    setBgImage(bg);
-  };
-
-  useResize(handleResize);
-
   useEffect(() => {
-    handleResize();
-  }, []);
+    setBgImage(isMobile ? Banner_mobile.src : Banner_pc.src);
+  }, [isMobile]);
   return (
     <div
       className="home-banner"

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import News1 from '@/assets/images/pc/news1.png';
 import News2 from '@/assets/images/pc/news2.png';
@@ -7,7 +8,10 @@ import News2_mobile from '@/assets/images/mobile/news2.png';
 import News3_mobile from '@/assets/images/mobile/news3.png';
 import Dot_pc from '@/assets/images/pc/dot.png';
 import Dot_mobile from '@/assets/images/mobile/dot.png';
+import { useCommonCtx } from '@/providers/common-provider';
+
 export default function HomeIntro() {
+  const { isMobile } = useCommonCtx();
   return (
     <div className="home-intro">
       <div className="home-intro-title">
@@ -19,7 +23,7 @@ export default function HomeIntro() {
       <div className="home-intro-card">
         <div className="home-intro-card-item">
           <Image
-            src={News1}
+            src={!isMobile ? News1 : News1_mobile}
             alt="intro-img"
             width={474}
             className="rounded-lg"
@@ -33,7 +37,7 @@ export default function HomeIntro() {
         </div>
         <div className="home-intro-card-item">
           <Image
-            src={News2}
+            src={!isMobile ? News2 : News2_mobile}
             alt="intro-img"
             width={474}
             className="rounded-lg "
@@ -47,7 +51,7 @@ export default function HomeIntro() {
         </div>
         <div className="home-intro-card-item">
           <Image
-            src={News3}
+            src={!isMobile ? News3 : News3_mobile}
             alt="intro-img"
             width={474}
             className="rounded-lg "
@@ -61,12 +65,12 @@ export default function HomeIntro() {
         </div>
       </div>
       <Image
-        src={Dot_pc}
+        src={!isMobile ? Dot_pc : Dot_mobile}
         alt="dot"
         className="home-intro-dot right-6 top-10 lg:right-[180px] lg:top-[100px]"
       />
       <Image
-        src={Dot_pc}
+        src={!isMobile ? Dot_pc : Dot_mobile}
         alt="dot"
         className="home-intro-dot left-6 bottom-[-60px] lg:left-[200px] lg:bottom-[-80px]"
       />
