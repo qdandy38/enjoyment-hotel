@@ -1,0 +1,20 @@
+@import 'tailwindcss/components';
+@layer components {
+  .button {
+    @apply p-5
+    lg:p-10
+    flex
+    justify-end
+    items-center
+    gap-2.5
+    rounded-lg
+    cursor-pointer
+    self-stretch;
+    span {
+      @apply text-base lg:text-2xl font-bold tracking-[0.32px] lg:tracking-[1.2px];
+    }
+    &-line {
+      @apply h-[1px] bg-black;
+    }
+  }
+}

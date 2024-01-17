@@ -13,7 +13,7 @@ import { useCommonCtx } from '@/providers/common-provider';
 export default function HomeIntro() {
   const { isMobile } = useCommonCtx();
   return (
-    <div className="home-intro">
+    <section className="home-intro">
       <div className="home-intro-title">
         <h1>
           <span>最新</span>
@@ -26,8 +26,7 @@ export default function HomeIntro() {
           <Image
             src={!isMobile ? News1 : News1_mobile}
             alt="intro-img"
-            width={474}
-            className="rounded-lg"
+            className="rounded-lg w-[474px]"
           />
           <div className="home-intro-card-item-content">
             <h3>秋季旅遊，豪華享受方案</h3>
@@ -40,8 +39,7 @@ export default function HomeIntro() {
           <Image
             src={!isMobile ? News2 : News2_mobile}
             alt="intro-img"
-            width={474}
-            className="rounded-lg "
+            className="rounded-lg w-[474px]"
           />
           <div className="home-intro-card-item-content">
             <h3>輕鬆住房專案</h3>
@@ -54,8 +52,7 @@ export default function HomeIntro() {
           <Image
             src={!isMobile ? News3 : News3_mobile}
             alt="intro-img"
-            width={474}
-            className="rounded-lg "
+            className="rounded-lg w-[474px]"
           />
           <div className="home-intro-card-item-content">
             <h3>耶誕快樂，住房送禮</h3>
@@ -75,6 +72,6 @@ export default function HomeIntro() {
         alt="dot"
         className="home-intro-dot left-6 bottom-[-60px] lg:left-[200px] lg:bottom-[-80px]"
       />
-    </div>
+    </section>
   );
 }

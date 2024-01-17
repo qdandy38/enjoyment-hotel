@@ -69,7 +69,7 @@ export default function Navigation({ toggle }: Props) {
           </li>
         ) : (
           <li className="p-4 flex justify-center items-center gap-2">
-            <IC_Profile className="icon w-[20px] h-[20px] flex-shrink-0" />
+            <IC_Profile className="icon fill-white w-[20px] h-[20px] flex-shrink-0" />
             <span>Andy</span>
           </li>
         )}

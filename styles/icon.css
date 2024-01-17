@@ -2,6 +2,6 @@
 
 @layer components {
   .icon {
-    @apply transition-all fill-white;
+    @apply transition-all;
   }
 }

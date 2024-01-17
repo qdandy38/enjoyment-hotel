@@ -1,0 +1,66 @@
+@import 'tailwindcss/components';
+@layer components {
+  .home-room {
+    @apply relative
+    w-full
+    flex
+    flex-col
+    justify-end
+    items-start
+    lg:flex-row
+    lg:justify-start
+    lg:items-end
+    gap-6
+    lg:gap-20
+    py-20
+    px-3
+    lg:py-[120px]
+    lg:pl-0
+    lg:pr-[312px];
+    &-img {
+      @apply h-[300px]
+      self-stretch
+      w-auto
+      lg:w-1/2
+      lg:h-auto
+      rounded-r-lg;
+    }
+    &-info {
+      @apply flex
+      w-full
+      lg:w-[40%]
+      flex-col
+      justify-center
+      items-end
+      gap-6
+      lg:gap-10
+      shrink-0;
+      &-title {
+        @apply flex
+        flex-col
+        items-start
+        gap-2
+        lg:gap-4
+        self-stretch;
+        h2 {
+          @apply font-bold
+          text-2.5xl
+          lg:text-[40px]
+          tracking-[1.4px]
+          lg:tracking-[2px];
+        }
+        p {
+          @apply text-sm lg:text-base;
+        }
+      }
+      &-price {
+        @apply font-bold
+        text-2xl
+        tracking-[1.2px]
+        lg:text-3.5xl
+        lg:tracking-[1.6px]
+        self-stretch;
+      }
+    }
+  }
+}
