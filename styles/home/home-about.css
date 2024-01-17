@@ -1,0 +1,86 @@
+@import 'tailwindcss/components';
+@layer components {
+  .home-about {
+    @apply w-full
+    flex
+    flex-col
+    items-start
+    pt-20
+    pb-[120px]
+    lg:inline-flex
+    lg:pt-[120px]
+    lg:pb-[200px];
+    &-bg {
+      @apply w-full
+      flex
+      justify-end
+      items-center
+      flex-col
+      flex-1
+      pt-10
+      pr-5
+      pl-10
+      lg:pt-20
+      lg:pr-[312px]
+      lg:pl-[564px];
+    }
+    &-content {
+      @apply mb-[-40px]
+      lg:mb-[-80px]
+      max-w-[315px]
+      lg:max-w-[1044px]
+      p-6
+      lg:p-[80px]
+      flex
+      flex-col
+      items-start
+      gap-10
+      lg:gap-20
+      rounded-l-[40px]
+      rounded-tr-[40px]
+      lg:rounded-l-[80px]
+      lg:rounded-tr-[80px]
+      border-solid
+      border-l
+      border-b
+      border-white
+      bg-gradient-to-b
+      from-[#140F0ACC]
+      to-[#BE9C7CCC]
+      backdrop-blur-[10px];
+      &-heading {
+        @apply flex
+        items-center
+        self-stretch
+        gap-10;
+        h1 {
+          @apply flex
+          flex-col
+          items-start
+          gap-1
+          text-3.5xl
+          lg:text-5xl
+          font-bold
+          tracking-[1.2px]
+          lg:tracking-[2.4px];
+        }
+        &-line {
+          @apply w-[155px]
+          lg:w-[165px]
+          h-[2px]
+          bg-white;
+        }
+      }
+      &-main {
+        @apply flex
+        flex-col
+        items-start
+        gap-10
+        self-stretch;
+        p {
+          @apply text-sm lg:text-base;
+        }
+      }
+    }
+  }
+}

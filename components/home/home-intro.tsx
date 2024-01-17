@@ -16,7 +16,8 @@ export default function HomeIntro() {
     <div className="home-intro">
       <div className="home-intro-title">
         <h1>
-          最新<br></br>消息
+          <span>最新</span>
+          <span>消息</span>
         </h1>
         <div className="home-intro-title-underline" />
       </div>

@@ -5,22 +5,112 @@
     min-h-screen;
     &-content {
       @apply w-full
-      py-[71px]
+      pt-[112px]
+      pb-[71px]
       lg:py-[166px]
-      px-20
+      px-5
+      lg:px-20
       flex
       flex-col
       gap-10
       lg:flex-row
-      lg:items-center 
-      lg:gap-[200px];
+      lg:items-center lg:gap-[200px];
       &-title {
         @apply flex
         flex-col
-        items-start
-        gap-10
+        items-center
+        lg:items-start
+        gap-5
+        lg:gap-10
         flex-1
-        w-1/2;
+        w-full
+        lg:w-1/2;
+        &-container {
+          @apply flex flex-col gap-2 w-full;
+          h2 {
+            @apply w-full
+            self-stretch
+            text-primary
+            text-[40px]
+            lg:text-5xl
+            tracking-[2px]
+            font-bold
+            text-center
+            lg:text-left;
+          }
+          p {
+            @apply text-primary
+            text-2xl
+            font-bold
+            lg:pb-10
+            text-center
+            lg:text-left
+            tracking-[1.2px];
+          }
+        }
+        &-line {
+          @apply w-[2px]
+          h-[83px]
+          bg-gradient-to-b
+          lg:w-full
+          lg:h-[2px]
+          lg:bg-gradient-to-r
+          from-primary
+          to-[#fff];
+        }
+      }
+      &-slogan {
+        @apply ml-[44px]
+        lg:ml-0
+        py-[60px]
+        lg:py-24
+        pr-5
+        lg:pr-[200px]
+        flex
+        flex-col
+        border-t
+        border-r
+        rounded-[40px]
+        lg:rounded-[80px]
+        border-[#F5F7F9]
+        bg-gradient-to-b
+        from-[rgba(255,255,255,0)]
+        to-[rgba(255,255,255,0.3)]
+        backdrop-blur-[10px];
+        &-layout {
+          @apply flex flex-col gap-[60px] ml-[-40px] lg:ml-[-30px];
+        }
+        &-title {
+          @apply flex
+          flex-col
+          gap-2
+          items-start
+          text-5xl
+          lg:text-[100px]
+          font-bold
+          tracking-[2.4px]
+          lg:tracking-[5px];
+        }
+        &-subtitle {
+          @apply text-black-40 text-base lg:text-3.5xl tracking-[0.32px] lg:tracking-[1.6px];
+        }
+        &-btn {
+          @apply p-5
+          lg:p-10
+          flex
+          justify-end
+          items-center
+          gap-2.5
+          rounded-lg
+          cursor-pointer
+          self-stretch;
+          span {
+            @apply text-base lg:text-2xl font-bold tracking-[0.32px] lg:tracking-[1.2px];
+          }
+          &-line {
+            @apply h-[1px] bg-black;
+          }
+        }
       }
     }
   }

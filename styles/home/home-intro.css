@@ -23,7 +23,11 @@
       lg:gap-10
       flex-shrink-0;
       h1 {
-        @apply text-primary
+        @apply flex
+        flex-col
+        items-start
+        gap-1
+        text-primary
         font-bold
         text-3.5xl
         tracking-[1.6px]
@@ -67,7 +71,7 @@
             @apply font-bold text-2.5xl lg:text-3.5xl tracking-[1.4px] lg:tracking-widest;
           }
           p {
-            @apply text-base tracking-[0.32px];
+            @apply text-sm lg:text-base;
           }
         }
       }
