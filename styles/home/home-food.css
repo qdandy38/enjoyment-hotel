@@ -1,0 +1,92 @@
+@import 'tailwindcss/components';
+@layer components {
+  .home-food {
+    @apply relative
+    bg-primary-10
+    w-full
+    py-[120px]
+    pl-[312px]
+    flex
+    flex-col
+    items-start
+    gap-20;
+    &-dot {
+      @apply absolute
+      w-[200px]
+      h-[200px]
+      right-[80px]
+      top-[-40px];
+    }
+    &-heading {
+      @apply flex
+      items-center
+      gap-10;
+      &-title {
+        @apply flex
+        flex-col
+        items-start
+        gap-1
+        text-primary
+        font-bold
+        text-5xl
+        tracking-[2.4px];
+      }
+      &-line {
+        @apply w-[167px]
+        h-[2px]
+        bg-gradient-to-r
+        from-primary
+        to-white;
+      }
+    }
+    &-card {
+      @apply relative
+      flex
+      justify-center
+      items-center
+      /* flex-1
+      flex-grow-0 */
+      rounded-lg
+      w-[416px]
+      h-[600px];
+      &-info {
+        @apply absolute
+        bottom-0
+        w-full
+        p-6
+        bg-gradient-to-b
+        /* from-[rgba(255,255,255,0)]
+        to-[rgba(255,255,255,0.3)] */
+        from-transparent
+      to-black-dark
+        backdrop-blur-[10px]
+        rounded-b-lg;
+        &-content {
+          @apply flex
+          flex-col
+          justify-end
+          items-start
+          gap-6
+          text-white;
+          &-title {
+            @apply flex
+            justify-between
+            items-center
+            gap-2
+            self-stretch
+            font-bold;
+            h5 {
+              @apply text-2xl
+              tracking-[1.2px];
+            }
+            &-time {
+              @apply flex
+              items-center
+              gap-4;
+            }
+          }
+        }
+      }
+    }
+  }
+}

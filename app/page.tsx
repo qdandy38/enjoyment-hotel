@@ -3,7 +3,7 @@ import HomeBanner from '@/components/home/home-banner';
 import HomeIntro from '@/components/home/home-intro';
 import HomeAbout from '@/components/home/home-about';
 import HomeRoom from '@/components/home/home-room';
-import Header from '@/components/layout/header';
+import HomeFood from '@/components/home/home-food';
 import '@/styles/home/index.css';
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
       <HomeIntro />
       <HomeAbout />
       <HomeRoom />
+      <HomeFood />
     </>
   );
 }
