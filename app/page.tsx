@@ -4,6 +4,7 @@ import HomeIntro from '@/components/home/home-intro';
 import HomeAbout from '@/components/home/home-about';
 import HomeRoom from '@/components/home/home-room';
 import HomeFood from '@/components/home/home-food';
+import HomeTraffic from '@/components/home/home-traffic';
 import '@/styles/home/index.css';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <HomeAbout />
       <HomeRoom />
       <HomeFood />
+      <HomeTraffic />
     </>
   );
 }

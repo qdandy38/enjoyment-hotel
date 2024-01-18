@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Noto_Serif_TC } from 'next/font/google';
 import Header from '@/components/layout/header';
 import CommonProvider from '@/providers/common-provider';
+// Import Swiper styles
+import 'swiper/css';
 import '@/styles/globals.css';
 import '@/styles/index.css';
 

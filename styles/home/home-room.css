@@ -2,6 +2,7 @@
 @layer components {
   .home-room {
     @apply relative
+    overflow-hidden
     w-full
     flex
     flex-col

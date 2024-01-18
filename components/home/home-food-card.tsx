@@ -27,7 +27,7 @@ function HomeFoodCard({ title, date, time, description, bgImage }: Props) {
               <span>{time}</span>
             </div>
           </div>
-          <p className="home-food-card-info-content-intro">{description}</p>
+          <p className="text-sm lg:text-base">{description}</p>
         </div>
       </div>
     </div>

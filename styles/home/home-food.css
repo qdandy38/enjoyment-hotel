@@ -4,17 +4,29 @@
     @apply relative
     bg-primary-10
     w-full
-    py-[120px]
-    pl-[312px]
+    py-20
+    px-3
+    lg:py-[120px]
+    lg:pl-[312px]
     flex
     flex-col
     items-start
-    gap-20;
+    gap-10
+    lg:gap-20;
+    &-line {
+      @apply absolute
+      w-[187px]
+      left-10
+      bottom-[-83px];
+    }
     &-dot {
       @apply absolute
-      w-[200px]
-      h-[200px]
-      right-[80px]
+      w-[100px]
+      h-[100px]
+      right-[40px]
+      lg:w-[200px]
+      lg:h-[200px]
+      lg:right-[80px]
       top-[-40px];
     }
     &-heading {
@@ -28,11 +40,14 @@
         gap-1
         text-primary
         font-bold
-        text-5xl
-        tracking-[2.4px];
+        text-3.5xl
+        lg:text-5xl
+        tracking-[1.6px]
+        lg:tracking-[2.4px];
       }
       &-line {
-        @apply w-[167px]
+        @apply w-[200px]
+        lg:w-[167px]
         h-[2px]
         bg-gradient-to-r
         from-primary
@@ -44,19 +59,18 @@
       flex
       justify-center
       items-center
-      /* flex-1
-      flex-grow-0 */
       rounded-lg
-      w-[416px]
-      h-[600px];
+      w-[300px]
+      h-[480px]
+      lg:w-[416px]
+      lg:h-[600px];
       &-info {
         @apply absolute
         bottom-0
         w-full
-        p-6
+        p-4
+        lg:p-6
         bg-gradient-to-b
-        /* from-[rgba(255,255,255,0)]
-        to-[rgba(255,255,255,0.3)] */
         from-transparent
       to-black-dark
         backdrop-blur-[10px]
@@ -66,7 +80,8 @@
           flex-col
           justify-end
           items-start
-          gap-6
+          gap-4
+          lg:gap-6
           text-white;
           &-title {
             @apply flex
@@ -82,7 +97,10 @@
             &-time {
               @apply flex
               items-center
-              gap-4;
+              text-sm
+              lg:text-base
+              gap-2
+              lg:gap-4;
             }
           }
         }
