@@ -23,7 +23,7 @@
       gap-10
       lg:gap-20
       px-3
-      lg:px-[19.5rem];
+      lg:px-[312px];
       &-heading {
         @apply flex
         items-center

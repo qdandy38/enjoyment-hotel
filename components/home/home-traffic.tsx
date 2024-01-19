@@ -29,7 +29,7 @@ function HomeTraffic() {
               src={!isMobile ? Map_pc : Map_mobile}
               alt="map"
               priority
-              className="w-full flex justify-center items-center rounded-lg"
+              className="w-full h-auto flex justify-center items-center rounded-lg"
             />
           </div>
           <ul className="home-traffic-content-main-way">
@@ -67,6 +67,7 @@ function HomeTraffic() {
         src={!isMobile ? Bg_line_pc : Bg_line_mobile}
         alt="bg_line"
         className="w-full"
+        priority
       />
     </section>
   );

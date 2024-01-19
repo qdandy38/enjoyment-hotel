@@ -1,0 +1,80 @@
+@import 'tailwindcss/components';
+@layer components {
+  .footer {
+    @apply w-full
+    overflow-hidden
+    px-3
+    lg:px-[312px]
+    pt-20
+    pb-[120px]
+    flex
+    flex-col
+    items-start
+    gap-[120px];
+    &-content {
+      @apply flex
+      flex-col
+      justify-center
+      items-center
+      gap-20
+      self-stretch
+      backdrop-blur-[10px];
+      &-contact {
+        @apply flex
+        flex-col
+        justify-start
+        items-start
+        self-stretch
+        gap-10
+        lg:flex-row
+        lg:justify-between;
+        &-sns {
+          @apply flex
+          flex-col
+          items-start
+          gap-10;
+          &-ic {
+            @apply flex
+            p-2
+            justify-center
+            items-center
+            rounded-[100px]
+            border
+            border-solid
+            border-white
+            cursor-pointer;
+          }
+        }
+        &-way {
+          @apply flex
+          flex-col
+          lg:flex-row
+          items-start
+          gap-4
+          lg:gap-20
+          self-stretch
+          lg:self-auto;
+          &-col {
+            @apply flex
+            flex-col
+            items-start
+            gap-4
+            lg:gap-10
+            self-stretch
+            lg:self-auto;
+          }
+        }
+      }
+      &-copyRight {
+        @apply flex
+        flex-col
+        gap-4
+        lg:flex-row
+        justify-between
+        items-start
+        lg:items-center
+        self-stretch;
+      }
+    }
+  }
+}

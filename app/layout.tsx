@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Serif_TC } from 'next/font/google';
 import Header from '@/components/layout/header';
+import Footer from '@/components/layout/footer';
 import CommonProvider from '@/providers/common-provider';
 // Import Swiper styles
 import 'swiper/css';
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           {/* <main className="container">{children}</main> */}
           <main>{children}</main>
+          <Footer />
         </CommonProvider>
       </body>
     </html>

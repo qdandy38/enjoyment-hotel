@@ -68,6 +68,8 @@
         @apply absolute
         bottom-0
         w-full
+        min-h-[180px]
+        lg:min-h-[200px]
         p-4
         lg:p-6
         bg-gradient-to-b
