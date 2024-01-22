@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import BgImg from '@/assets/images/pc/register.png';
 import Line_pc from '@/assets/images/pc/line2.png';
@@ -9,27 +9,30 @@ import { login } from '@/apis/user';
 
 import '@/styles/login/index.css';
 
+interface LoginInfo {
+  email: string;
+  password: string;
+}
 function Login() {
   const { isMobile } = useCommonCtx();
+  const [loginInfo, setLoginInfo] = useState<LoginInfo>({ email: '', password: '' });
 
-  const apiTest = async () => {
-    const data = {
-      email: 'qdandy38@gmail.com',
-      password: 'andy0001',
-    };
-
-    const res = await login(data);
-    console.log('res', res);
+  const doLogin = async () => {
+    try {
+      const res = await login(loginInfo);
+      console.log('res', res);
+    } catch (err) {
+      console.error(err);
+    }
   };
-  useEffect(() => {
-    // apiTest();
-  }, []);
+
   return (
     <div className="login">
       <Image
         src={!isMobile ? Line_pc : Line_mobile}
         alt="bg_line"
         className="absolute top-[152px] right-0 z-[-1]"
+        priority
       />
       {!isMobile && (
         <Image
@@ -52,14 +55,16 @@ function Login() {
                 type="text"
                 placeholder="hello@exsample.com"
                 className="login-content-form-input"
+                onChange={e => setLoginInfo({ ...loginInfo, email: e.target.value })}
               />
             </label>
             <label className="login-content-form-label">
               <p className="font-bold">密碼</p>
               <input
-                type="text"
+                type="password"
                 placeholder="請輸入密碼"
                 className="login-content-form-input"
+                onChange={e => setLoginInfo({ ...loginInfo, password: e.target.value })}
               />
             </label>
             <div className="login-content-form-option">
@@ -79,7 +84,12 @@ function Login() {
               </button>
             </div>
           </div>
-          <button className="login-content-btn">會員登入</button>
+          <button
+            className="login-content-btn"
+            onClick={doLogin}
+          >
+            會員登入
+          </button>
           <div className="login-content-noAccount">
             <p className="text-sm lg:text-base">沒有會員嗎？</p>
             <button className="text-primary font-bold underline text-sm lg:text-base">前往註冊</button>
