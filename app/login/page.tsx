@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import BgImg from '@/assets/images/pc/register.png';
 import Line_pc from '@/assets/images/pc/line2.png';
@@ -7,7 +8,7 @@ import Line_mobile from '@/assets/images/mobile/line.png';
 import { useCommonCtx } from '@/providers/common-provider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { setToken } from '@/store/userSlice';
+import { setToken, setUserInfo, setRememberMeData } from '@/store/userSlice';
 import { login } from '@/apis/user';
 
 import '@/styles/login/index.css';
@@ -17,24 +18,40 @@ interface LoginInfo {
   password: string;
 }
 function Login() {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const token = useSelector((state: RootState) => state.user.token);
+  const rememberMeData = useSelector((state: RootState) => state.user.rememberMeData);
   const { isMobile } = useCommonCtx();
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({ email: '', password: '' });
+  const [isRememberMe, setIsRememberMe] = useState<boolean>(false);
 
   const doLogin = async () => {
     try {
       const res = await login(loginInfo);
-      console.log('res', res);
       dispatch(setToken(res.data.token));
+      dispatch(setUserInfo(res.data.result));
+      setRememberData();
+
+      router.push('/');
     } catch (err) {
       console.error(err);
     }
   };
 
+  const setRememberData = () => {
+    if (isRememberMe) {
+      dispatch(setRememberMeData(loginInfo.email));
+    } else {
+      dispatch(setRememberMeData(''));
+    }
+  };
+
   useEffect(() => {
-    console.log('token', token);
-  }, [token]);
+    if (rememberMeData) {
+      setLoginInfo({ ...loginInfo, email: rememberMeData });
+      setIsRememberMe(true);
+    }
+  }, [rememberMeData]);
 
   return (
     <div className="login">
@@ -65,6 +82,7 @@ function Login() {
                 type="text"
                 placeholder="hello@exsample.com"
                 className="login-content-form-input"
+                value={loginInfo.email || ''}
                 onChange={e => setLoginInfo({ ...loginInfo, email: e.target.value })}
               />
             </label>
@@ -74,6 +92,7 @@ function Login() {
                 type="password"
                 placeholder="請輸入密碼"
                 className="login-content-form-input"
+                value={loginInfo.password || ''}
                 onChange={e => setLoginInfo({ ...loginInfo, password: e.target.value })}
               />
             </label>
@@ -81,7 +100,9 @@ function Login() {
               <input
                 id="remember"
                 type="checkbox"
+                checked={isRememberMe || false}
                 className="w-6 h-6 rounded-[4px] border-black-60 bg-white cursor-pointer"
+                onChange={e => setIsRememberMe(e.target.checked)}
               />
               <label
                 htmlFor="remember"
