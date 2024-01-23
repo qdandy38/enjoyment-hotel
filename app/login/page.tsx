@@ -1,10 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import BgImg from '@/assets/images/pc/register.png';
 import Line_pc from '@/assets/images/pc/line2.png';
 import Line_mobile from '@/assets/images/mobile/line.png';
 import { useCommonCtx } from '@/providers/common-provider';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { setToken } from '@/store/userSlice';
 import { login } from '@/apis/user';
 
 import '@/styles/login/index.css';
@@ -14,6 +17,8 @@ interface LoginInfo {
   password: string;
 }
 function Login() {
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootState) => state.user.token);
   const { isMobile } = useCommonCtx();
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({ email: '', password: '' });
 
@@ -21,10 +26,15 @@ function Login() {
     try {
       const res = await login(loginInfo);
       console.log('res', res);
+      dispatch(setToken(res.data.token));
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    console.log('token', token);
+  }, [token]);
 
   return (
     <div className="login">
