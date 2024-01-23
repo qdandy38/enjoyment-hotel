@@ -3,6 +3,10 @@ import { Noto_Serif_TC } from 'next/font/google';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import CommonProvider from '@/providers/common-provider';
+import ReduxProvider from '@/providers/redux-provider';
+import { Provider } from 'react-redux';
+import store from '@/store';
+
 // Import Swiper styles
 import 'swiper/css';
 import '@/styles/globals.css';
@@ -19,12 +23,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={notoSerifTC.className}>
-        <CommonProvider>
-          <Header />
-          {/* <main className="container">{children}</main> */}
-          <main>{children}</main>
-          <Footer />
-        </CommonProvider>
+        <ReduxProvider>
+          {/* <Provider store={store}> */}
+          <CommonProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </CommonProvider>
+        </ReduxProvider>
+        {/* </Provider> */}
       </body>
     </html>
   );
