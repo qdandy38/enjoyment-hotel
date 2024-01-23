@@ -3,9 +3,11 @@ import { combineReducers } from 'redux';
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userReducer from './userSlice';
+import commonReducer from './commonSlice';
 
 const reducers = combineReducers({
   user: userReducer,
+  common: commonReducer,
 });
 
 const persistConfig = {

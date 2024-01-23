@@ -4,8 +4,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import CommonProvider from '@/providers/common-provider';
 import ReduxProvider from '@/providers/redux-provider';
-import { Provider } from 'react-redux';
-import store from '@/store';
+import Loading from '@/components/common/loading';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -24,14 +23,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={notoSerifTC.className}>
         <ReduxProvider>
-          {/* <Provider store={store}> */}
           <CommonProvider>
             <Header />
             <main>{children}</main>
             <Footer />
+            <Loading />
           </CommonProvider>
         </ReduxProvider>
-        {/* </Provider> */}
       </body>
     </html>
   );

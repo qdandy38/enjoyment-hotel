@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { localToken } from '@/utils/auth';
 interface UserState {
   token: string;
   userInfo: object;

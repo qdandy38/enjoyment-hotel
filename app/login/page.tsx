@@ -9,6 +9,7 @@ import { useCommonCtx } from '@/providers/common-provider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { setToken, setUserInfo, setRememberMeData } from '@/store/userSlice';
+import { setIsLoading } from '@/store/commonSlice';
 import { login } from '@/apis/user';
 
 import '@/styles/login/index.css';
@@ -27,6 +28,7 @@ function Login() {
 
   const doLogin = async () => {
     try {
+      dispatch(setIsLoading(true));
       const res = await login(loginInfo);
       dispatch(setToken(res.data.token));
       dispatch(setUserInfo(res.data.result));
@@ -35,6 +37,8 @@ function Login() {
       router.push('/');
     } catch (err) {
       console.error(err);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
 
