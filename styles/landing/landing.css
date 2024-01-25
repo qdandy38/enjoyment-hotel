@@ -1,0 +1,18 @@
+@import 'tailwindcss/components';
+@layer components {
+  .landing {
+    @apply relative
+    pt-[120px]
+    h-screen
+    flex;
+    &-layout {
+      @apply w-full
+      lg:w-1/2
+      px-5
+      lg:px-0
+      flex
+      justify-center
+      items-center;
+    }
+  }
+}

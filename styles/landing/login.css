@@ -1,0 +1,64 @@
+@import 'tailwindcss/components';
+@layer components {
+  .login {
+    @apply w-[416px]
+    flex
+    flex-col
+    items-start
+    gap-10;
+    &-heading {
+      @apply flex
+      flex-col
+      items-start
+      gap-2
+      self-stretch;
+    }
+    &-form {
+      @apply flex
+      flex-col
+      items-start
+      gap-4
+      self-stretch;
+      &-label {
+        @apply flex
+        flex-col
+        items-start
+        gap-2
+        self-stretch;
+      }
+      &-input {
+        @apply rounded-lg
+        border
+        border-solid
+        border-black-40
+        p-4
+        text-black-60
+        flex
+        items-center
+        self-stretch;
+      }
+      &-option {
+        @apply flex
+        items-center
+        gap-2
+        self-stretch;
+      }
+    }
+    &-btn {
+      @apply rounded-lg
+      flex
+      justify-center
+      items-center
+      self-stretch
+      py-4
+      px-8
+      bg-black-40
+      text-black-60
+      font-bold;
+      &:hover {
+        @apply bg-primary
+        text-white;
+      }
+    }
+  }
+}

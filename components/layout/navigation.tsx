@@ -64,7 +64,11 @@ export default function Navigation({ toggle }: Props) {
           <Link href="/booking">客房旅宿</Link>
         </li>
         {!isLogin ? (
-          <li className={`${segment === 'login' ? 'text-primary' : 'hover:text-primary'} transition-colors p-4`}>
+          <li
+            className={`${
+              segment === 'login' || 'register' ? 'text-primary' : 'hover:text-primary'
+            } transition-colors p-4`}
+          >
             <Link href="/login">會員登入</Link>
           </li>
         ) : (

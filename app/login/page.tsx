@@ -12,7 +12,7 @@ import { setToken, setUserInfo, setRememberMeData } from '@/store/userSlice';
 import { setIsLoading } from '@/store/commonSlice';
 import { login } from '@/apis/user';
 
-import '@/styles/login/index.css';
+import '@/styles/landing/index.css';
 
 interface LoginInfo {
   email: string;
@@ -58,7 +58,7 @@ function Login() {
   }, [rememberMeData]);
 
   return (
-    <div className="login">
+    <div className="landing">
       <Image
         src={!isMobile ? Line_pc : Line_mobile}
         alt="bg_line"
@@ -73,34 +73,34 @@ function Login() {
           className="w-1/2 "
         />
       )}
-      <div className="login-layout">
-        <div className="login-content">
-          <div className="login-content-heading">
+      <div className="landing-layout">
+        <div className="login">
+          <div className="login-heading">
             <p className="font-bold text-primary text-sm lg:text-base">享樂酒店，誠摯歡迎</p>
             <h1 className="font-bold text-white text-3.5xl lg:text-5xl">立即開始旅程</h1>
           </div>
-          <div className="login-content-form">
-            <label className="login-content-form-label">
+          <div className="login-form">
+            <label className="login-form-label">
               <p className="font-bold text-sm lg:text-base">電子信箱</p>
               <input
                 type="text"
                 placeholder="hello@exsample.com"
-                className="login-content-form-input"
+                className="login-form-input"
                 value={loginInfo.email || ''}
                 onChange={e => setLoginInfo({ ...loginInfo, email: e.target.value })}
               />
             </label>
-            <label className="login-content-form-label">
+            <label className="login-form-label">
               <p className="font-bold">密碼</p>
               <input
                 type="password"
                 placeholder="請輸入密碼"
-                className="login-content-form-input"
+                className="login-form-input"
                 value={loginInfo.password || ''}
                 onChange={e => setLoginInfo({ ...loginInfo, password: e.target.value })}
               />
             </label>
-            <div className="login-content-form-option">
+            <div className="login-form-option">
               <input
                 id="remember"
                 type="checkbox"
@@ -120,14 +120,19 @@ function Login() {
             </div>
           </div>
           <button
-            className="login-content-btn"
+            className="login-btn"
             onClick={doLogin}
           >
             會員登入
           </button>
-          <div className="login-content-noAccount">
+          <div className="flex items-center self-stretch gap-2">
             <p className="text-sm lg:text-base">沒有會員嗎？</p>
-            <button className="text-primary font-bold underline text-sm lg:text-base">前往註冊</button>
+            <button
+              className="text-primary font-bold underline text-sm lg:text-base"
+              onClick={() => router.push('/register')}
+            >
+              前往註冊
+            </button>
           </div>
         </div>
       </div>
