@@ -5,6 +5,7 @@ import Footer from '@/components/layout/footer';
 import CommonProvider from '@/providers/common-provider';
 import ReduxProvider from '@/providers/redux-provider';
 import Loading from '@/components/common/loading';
+import PrefetchAddress from '@/components/common/prefetch-address';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CommonProvider>
             <Header />
             <main>{children}</main>
+            <PrefetchAddress />
             <Footer />
             <Loading />
           </CommonProvider>
