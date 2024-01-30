@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import BgImg from '@/assets/images/pc/register.png';
@@ -11,6 +11,8 @@ import { RootState } from '@/store';
 import { setToken, setUserInfo, setRememberMeData } from '@/store/userSlice';
 import { setIsLoading } from '@/store/commonSlice';
 import { login } from '@/apis/user';
+import ValidateInput from '@/components/common/validate-input';
+import { validateForm } from '@/utils/validation';
 
 import '@/styles/landing/index.css';
 
@@ -26,7 +28,30 @@ function Login() {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({ email: '', password: '' });
   const [isRememberMe, setIsRememberMe] = useState<boolean>(false);
 
+  const formRule: RulesMap = {
+    email: [
+      {
+        message: '信箱格式錯誤',
+        regExp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      },
+    ],
+    password: [
+      {
+        message: '密碼必須大於8位',
+        validator: val => val.trim().length >= 8,
+      },
+      {
+        message: '只可輸入數字或英文',
+        regExp: /^[a-zA-Z0-9]+$/,
+      },
+    ],
+  };
+  const isValid = useMemo(() => {
+    return validateForm(loginInfo, formRule);
+  }, [loginInfo, formRule]);
+
   const doLogin = async () => {
+    if (!isValid) return;
     try {
       dispatch(setIsLoading(true));
       const res = await login(loginInfo);
@@ -82,22 +107,22 @@ function Login() {
           <div className="login-form">
             <label className="login-form-label">
               <p className="font-bold text-sm lg:text-base">電子信箱</p>
-              <input
+              <ValidateInput
                 type="text"
                 placeholder="hello@exsample.com"
-                className="login-form-input"
-                value={loginInfo.email || ''}
-                onChange={e => setLoginInfo({ ...loginInfo, email: e.target.value })}
+                value={loginInfo.email}
+                fn={val => setLoginInfo({ ...loginInfo, email: val })}
+                rules={formRule.email}
               />
             </label>
             <label className="login-form-label">
               <p className="font-bold">密碼</p>
-              <input
+              <ValidateInput
                 type="password"
                 placeholder="請輸入密碼"
-                className="login-form-input"
-                value={loginInfo.password || ''}
-                onChange={e => setLoginInfo({ ...loginInfo, password: e.target.value })}
+                value={loginInfo.password}
+                fn={val => setLoginInfo({ ...loginInfo, password: val })}
+                rules={formRule.password}
               />
             </label>
             <div className="login-form-option">
@@ -120,7 +145,7 @@ function Login() {
             </div>
           </div>
           <button
-            className="login-btn"
+            className={`login-btn ${!isValid && '-disabled'}`}
             onClick={doLogin}
           >
             會員登入

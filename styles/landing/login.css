@@ -5,7 +5,7 @@
     flex
     flex-col
     items-start
-    gap-10;
+    gap-5;
     &-heading {
       @apply flex
       flex-col
@@ -58,6 +58,12 @@
       &:hover {
         @apply bg-primary
         text-white;
+      }
+      &.-disabled {
+        @apply border-black-60
+        text-white
+        bg-black-60
+        cursor-not-allowed;
       }
     }
   }

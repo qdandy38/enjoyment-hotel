@@ -1,11 +1,13 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Select, { OptionsOrGroups, GroupBase, StylesConfig } from 'react-select';
 import { useRouter } from 'next/navigation';
 import BgImg from '@/assets/images/pc/register.png';
 import Line_pc from '@/assets/images/pc/line2.png';
 import Line_mobile from '@/assets/images/mobile/line.png';
+import ValidateInput from '@/components/common/validate-input';
+import { validateForm } from '@/utils/validation';
 import { useCommonCtx } from '@/providers/common-provider';
 
 import '@/styles/landing/index.css';
@@ -15,10 +17,12 @@ interface SelectOptionType {
   value: string | number;
 }
 type SelectedValue = SelectOptionType | null;
-interface RegisterInfo {
+interface Step1Info {
   email: string;
   password: string;
   confirmPassword: string;
+}
+interface Step2Info {
   name: string;
   phone: string;
   birth: {
@@ -33,6 +37,7 @@ interface RegisterInfo {
   };
   isRead: boolean;
 }
+interface RegisterInfo extends Step1Info, Step2Info {}
 
 type IsMulti = false;
 const selectStyle: StylesConfig<SelectOptionType, IsMulti> = {
@@ -64,10 +69,12 @@ function Register() {
   const router = useRouter();
   const { isMobile, addressOptionData } = useCommonCtx();
   const [nowStep, setNowStep] = useState(1);
-  const [registerInfo, setRegisterInfo] = useState<RegisterInfo>({
+  const [step1Info, setStep1Info] = useState<Step1Info>({
     email: '',
     password: '',
     confirmPassword: '',
+  });
+  const [step2Info, setStep2Info] = useState<Step2Info>({
     name: '',
     phone: '',
     birth: {
@@ -90,6 +97,64 @@ function Register() {
   const [cityOption, setCityOption] = useState<OptionsOrGroups<any, GroupBase<any>>>([]);
   const [districtOption, setDistrictOption] = useState<OptionsOrGroups<any, GroupBase<any>>>([]);
 
+  const formRuleStep1: RulesMap = {
+    email: [
+      {
+        message: '信箱格式錯誤',
+        regExp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      },
+    ],
+    password: [
+      {
+        message: '密碼必須大於8位',
+        validator: val => val.trim().length >= 8,
+      },
+      {
+        message: '只可輸入數字或英文',
+        regExp: /^[a-zA-Z0-9]+$/,
+      },
+    ],
+    confirmPassword: [
+      {
+        message: '密碼不一致',
+        validator: val => val === step1Info.password,
+      },
+    ],
+  };
+  const formRuleStep2: RulesMap = {
+    name: [
+      {
+        message: '此為必填',
+        regExp: /\S/,
+      },
+    ],
+    phone: [
+      {
+        message: '手機格式錯誤',
+        regExp: /^\d+$/,
+      },
+    ],
+    fullAddress: [
+      {
+        message: '此為必填',
+        regExp: /\S/,
+      },
+    ],
+  };
+
+  const isValidStep1 = useMemo(() => {
+    return validateForm(step1Info, formRuleStep1);
+  }, [step1Info, formRuleStep1]);
+
+  const isValidStep2 = useMemo(() => {
+    return (
+      validateForm(step2Info, formRuleStep2) &&
+      Object.values(step2Info.birth).every(val => !!val) &&
+      Object.values(step2Info.address).every(val => !!val) &&
+      step2Info.isRead
+    );
+  }, [step2Info, formRuleStep2]);
+
   const getAddressOption = () => {
     const allData = addressOptionData.data;
     setCityOption(
@@ -101,8 +166,8 @@ function Register() {
   };
 
   const getDateOption = () => {
-    const year = registerInfo.birth.year?.value as number | undefined;
-    const month = registerInfo.birth.month?.value as number | undefined;
+    const year = step2Info.birth.year?.value as number | undefined;
+    const month = step2Info.birth.month?.value as number | undefined;
     if (!year || !month) return;
 
     const daysInMonth = new Date(year, month, 0).getDate();
@@ -146,14 +211,22 @@ function Register() {
 
   useEffect(() => {
     getDateOption();
-    setRegisterInfo({ ...registerInfo, birth: { ...registerInfo.birth, date: null } });
-  }, [registerInfo.birth.year, registerInfo.birth.month]);
+    setStep2Info({ ...step2Info, birth: { ...step2Info.birth, date: null } });
+  }, [step2Info.birth.year, step2Info.birth.month]);
 
   useEffect(() => {
-    getDistrictOption(registerInfo.address.city?.value);
-    setRegisterInfo({ ...registerInfo, address: { ...registerInfo.address, district: null } });
-  }, [registerInfo.address.city]);
+    getDistrictOption(step2Info.address.city?.value);
+    setStep2Info({ ...step2Info, address: { ...step2Info.address, district: null } });
+  }, [step2Info.address.city]);
 
+  const goNextStep = () => {
+    if (!isValidStep1) return;
+    setNowStep(2);
+  };
+  const doRegister = () => {
+    if (!isValidStep2) return;
+    console.log('doRegister');
+  };
   return (
     <div className="landing">
       <Image
@@ -175,12 +248,14 @@ function Register() {
           <div className="register-heading">
             <div className="register-heading-title">
               <p className="font-bold text-primary text-sm lg:text-base">享樂酒店，誠摯歡迎</p>
-              <h1 className="font-bold text-white text-3.5xl lg:text-5xl">立即註冊✔</h1>
+              <h1 className="font-bold text-white text-3.5xl lg:text-5xl">立即註冊</h1>
             </div>
             <div className="register-heading-step">
               <div className="register-heading-step-item">
-                <span className={`register-heading-step-item-nth ${nowStep === 1 && '-active'}`}>1</span>
-                <span className={`font-bold ${nowStep === 1 ? 'text-white' : 'text-black-60'}`}>輸入信箱及密碼</span>
+                <span className={`register-heading-step-item-nth ${nowStep >= 1 && '-active'}`}>
+                  {nowStep > 1 ? '✔' : '1'}
+                </span>
+                <span className={`font-bold ${nowStep >= 1 ? 'text-white' : 'text-black-60'}`}>輸入信箱及密碼</span>
               </div>
               <div className="register-heading-step-line" />
               <div className="register-heading-step-item">
@@ -194,32 +269,32 @@ function Register() {
               <>
                 <label className="register-form-label">
                   <p className="font-bold text-sm lg:text-base">電子信箱</p>
-                  <input
+                  <ValidateInput
                     type="text"
                     placeholder="hello@exsample.com"
-                    className="register-form-input"
-                    value={registerInfo.email || ''}
-                    onChange={e => setRegisterInfo({ ...registerInfo, email: e.target.value })}
+                    value={step1Info.email}
+                    fn={val => setStep1Info({ ...step1Info, email: val })}
+                    rules={formRuleStep1.email}
                   />
                 </label>
                 <label className="register-form-label">
                   <p className="font-bold text-sm lg:text-base">密碼</p>
-                  <input
+                  <ValidateInput
                     type="password"
                     placeholder="請輸入密碼"
-                    className="register-form-input"
-                    value={registerInfo.password || ''}
-                    onChange={e => setRegisterInfo({ ...registerInfo, password: e.target.value })}
+                    value={step1Info.password}
+                    fn={val => setStep1Info({ ...step1Info, password: val })}
+                    rules={formRuleStep1.password}
                   />
                 </label>
                 <label className="register-form-label">
                   <p className="font-bold text-sm lg:text-base">確認密碼</p>
-                  <input
-                    type="text"
+                  <ValidateInput
+                    type="password"
                     placeholder="請再輸入一次密碼"
-                    className="register-form-input"
-                    value={registerInfo.confirmPassword || ''}
-                    onChange={e => setRegisterInfo({ ...registerInfo, confirmPassword: e.target.value })}
+                    value={step1Info.confirmPassword}
+                    fn={val => setStep1Info({ ...step1Info, confirmPassword: val })}
+                    rules={formRuleStep1.confirmPassword}
                   />
                 </label>
               </>
@@ -228,22 +303,22 @@ function Register() {
               <>
                 <label className="register-form-label">
                   <p className="font-bold text-sm lg:text-base">姓名</p>
-                  <input
+                  <ValidateInput
                     type="text"
                     placeholder="請輸入姓名"
-                    className="register-form-input"
-                    value={registerInfo.name || ''}
-                    onChange={e => setRegisterInfo({ ...registerInfo, name: e.target.value })}
+                    value={step2Info.name}
+                    fn={val => setStep2Info({ ...step2Info, name: val })}
+                    rules={formRuleStep2.name}
                   />
                 </label>
                 <label className="register-form-label">
                   <p className="font-bold text-sm lg:text-base">手機號碼</p>
-                  <input
-                    type="password"
+                  <ValidateInput
+                    type="text"
                     placeholder="請輸入手機號碼"
-                    className="register-form-input"
-                    value={registerInfo.phone || ''}
-                    onChange={e => setRegisterInfo({ ...registerInfo, phone: e.target.value })}
+                    value={step2Info.phone}
+                    fn={val => setStep2Info({ ...step2Info, phone: val })}
+                    rules={formRuleStep2.phone}
                   />
                 </label>
                 <div className="register-form-label">
@@ -252,29 +327,23 @@ function Register() {
                     <Select
                       options={yearOption}
                       placeholder="年"
-                      value={registerInfo.birth.year}
+                      value={step2Info.birth.year}
                       styles={selectStyle}
-                      onChange={val =>
-                        setRegisterInfo({ ...registerInfo, birth: { ...registerInfo.birth, year: val } })
-                      }
+                      onChange={val => setStep2Info({ ...step2Info, birth: { ...step2Info.birth, year: val } })}
                     />
                     <Select
                       options={monthOption}
                       placeholder="月"
-                      value={registerInfo.birth.month}
+                      value={step2Info.birth.month}
                       styles={selectStyle}
-                      onChange={val =>
-                        setRegisterInfo({ ...registerInfo, birth: { ...registerInfo.birth, month: val } })
-                      }
+                      onChange={val => setStep2Info({ ...step2Info, birth: { ...step2Info.birth, month: val } })}
                     />
                     <Select
                       options={dateOption}
                       placeholder="日"
-                      value={registerInfo.birth.date}
+                      value={step2Info.birth.date}
                       styles={selectStyle}
-                      onChange={val =>
-                        setRegisterInfo({ ...registerInfo, birth: { ...registerInfo.birth, date: val } })
-                      }
+                      onChange={val => setStep2Info({ ...step2Info, birth: { ...step2Info.birth, date: val } })}
                     />
                   </div>
                 </div>
@@ -284,44 +353,61 @@ function Register() {
                     <Select
                       options={cityOption}
                       placeholder="縣市"
-                      value={registerInfo.address.city}
+                      value={step2Info.address.city}
                       styles={selectStyle}
-                      onChange={val =>
-                        setRegisterInfo({ ...registerInfo, address: { ...registerInfo.address, city: val } })
-                      }
+                      onChange={val => setStep2Info({ ...step2Info, address: { ...step2Info.address, city: val } })}
                     />
                     <Select
                       options={districtOption}
                       placeholder="區"
-                      value={registerInfo.address.district}
+                      value={step2Info.address.district}
                       styles={selectStyle}
-                      onChange={val =>
-                        setRegisterInfo({ ...registerInfo, address: { ...registerInfo.address, district: val } })
-                      }
+                      onChange={val => setStep2Info({ ...step2Info, address: { ...step2Info.address, district: val } })}
                     />
                   </div>
-                  <input
+                  <ValidateInput
                     type="text"
                     placeholder="請輸入詳細地址"
-                    className="register-form-input"
-                    value={registerInfo.address.fullAddress || ''}
-                    onChange={e =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        address: { ...registerInfo.address, fullAddress: e.target.value },
-                      })
-                    }
+                    value={step2Info.address.fullAddress}
+                    fn={val => setStep2Info({ ...step2Info, address: { ...step2Info.address, fullAddress: val } })}
+                    rules={formRuleStep2.fullAddress}
                   />
+                </div>
+                <div className="register-form-option">
+                  <input
+                    id="remember"
+                    type="checkbox"
+                    checked={step2Info.isRead}
+                    className="w-6 h-6 rounded-[4px] border-black-60 bg-white cursor-pointer"
+                    onChange={e => setStep2Info({ ...step2Info, isRead: e.target.checked })}
+                  />
+                  <label
+                    htmlFor="remember"
+                    className="font-bold text-sm lg:text-base"
+                  >
+                    我已閱讀並同意本網站個資使用規範
+                  </label>
                 </div>
               </>
             )}
           </div>
-          <button
-            className="register-btn"
-            onClick={() => setNowStep(2)}
-          >
-            下一步
-          </button>
+          {nowStep === 1 && (
+            <button
+              className={`register-btn ${!isValidStep1 && '-disabled'}`}
+              disabled={!isValidStep1}
+              onClick={goNextStep}
+            >
+              下一步
+            </button>
+          )}
+          {nowStep === 2 && (
+            <button
+              className={`register-btn ${!isValidStep2 && '-disabled'}`}
+              onClick={doRegister}
+            >
+              完成註冊
+            </button>
+          )}
           <div className="flex items-center self-stretch gap-2">
             <p className="text-sm lg:text-base">已經有會員了嗎？</p>
             <button
