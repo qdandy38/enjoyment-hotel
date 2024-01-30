@@ -9,6 +9,10 @@ import Line_mobile from '@/assets/images/mobile/line.png';
 import ValidateInput from '@/components/common/validate-input';
 import { validateForm } from '@/utils/validation';
 import { useCommonCtx } from '@/providers/common-provider';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '@/store/commonSlice';
+import { setToken, setUserInfo } from '@/store/userSlice';
+import { register } from '@/apis/user';
 
 import '@/styles/landing/index.css';
 
@@ -67,6 +71,8 @@ const selectStyle: StylesConfig<SelectOptionType, IsMulti> = {
 };
 function Register() {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const { isMobile, addressOptionData } = useCommonCtx();
   const [nowStep, setNowStep] = useState(1);
   const [step1Info, setStep1Info] = useState<Step1Info>({
@@ -189,7 +195,7 @@ function Register() {
     // 將區域列表轉換成適用於 Select 組件的格式
     const formattedDistrictOption = areaList.map((area: any) => ({
       label: area.AreaName,
-      value: area.AreaEngName,
+      value: area.ZipCode,
     }));
 
     // 更新 districtOption
@@ -223,9 +229,30 @@ function Register() {
     if (!isValidStep1) return;
     setNowStep(2);
   };
-  const doRegister = () => {
+  const doRegister = async () => {
     if (!isValidStep2) return;
-    console.log('doRegister');
+    try {
+      dispatch(setIsLoading(true));
+      const sendData = {
+        name: step2Info.name,
+        email: step1Info.email,
+        password: step1Info.password,
+        phone: step2Info.phone,
+        birthday: `${step2Info.birth.year?.value}/${step2Info.birth.month?.value}/${step2Info.birth.date?.value}`,
+        address: {
+          zipcode: step2Info.address.district?.value,
+          detail: step2Info.address.fullAddress,
+        },
+      };
+      const res = await register(sendData);
+      dispatch(setToken(res.data.token));
+      dispatch(setUserInfo(res.data.result));
+
+      router.push('/');
+    } catch (error) {
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   };
   return (
     <div className="landing">

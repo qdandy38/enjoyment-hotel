@@ -3,6 +3,8 @@ import { motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import IC_Profile from '@/assets/icons/ic_Profile.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 interface Props {
   toggle: () => void;
@@ -54,7 +56,8 @@ const sidebar = {
   },
 };
 export default function Navigation({ toggle }: Props) {
-  const [isLogin, setIsLogin] = useState(false);
+  const token = useSelector((state: RootState) => state.user.token);
+  const userInfo = useSelector((state: RootState) => state.user.userInfo);
   const segment = useSelectedLayoutSegment();
 
   return (
@@ -63,7 +66,7 @@ export default function Navigation({ toggle }: Props) {
         <li className={`${segment === 'booking' ? 'text-primary' : 'hover:text-primary'} transition-colors p-4`}>
           <Link href="/booking">客房旅宿</Link>
         </li>
-        {!isLogin ? (
+        {!token ? (
           <li
             className={`${
               segment === 'login' || segment === 'register' ? 'text-primary' : 'hover:text-primary'
@@ -73,8 +76,8 @@ export default function Navigation({ toggle }: Props) {
           </li>
         ) : (
           <li className="p-4 flex justify-center items-center gap-2">
-            <IC_Profile className="icon fill-white w-[20px] h-[20px] flex-shrink-0" />
-            <span>Andy</span>
+            <IC_Profile className="icon fill-white w-[24px] h-[24px] flex-shrink-0" />
+            <span>{userInfo.name}</span>
           </li>
         )}
         <li className="bg-primary hover:bg-primary-120 py-4 px-8 rounded-lg">
