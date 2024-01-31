@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import News1 from '@/assets/images/pc/news1.png';
 import News2 from '@/assets/images/pc/news2.png';
@@ -9,9 +10,30 @@ import News3_mobile from '@/assets/images/mobile/news3.png';
 import Dot_pc from '@/assets/images/pc/dot.png';
 import Dot_mobile from '@/assets/images/mobile/dot.png';
 import { useCommonCtx } from '@/providers/common-provider';
+import { getNewsList } from '@/apis/home';
 
+interface News {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  description: string;
+  image: string;
+}
 export default function HomeIntro() {
   const { isMobile } = useCommonCtx();
+  const [newsList, setNewsList] = useState<News[]>([]);
+  const getNews = async () => {
+    try {
+      const res = await getNewsList();
+      setNewsList(res.data.result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getNews();
+  }, []);
   return (
     <section className="home-intro">
       <div className="home-intro-title">
@@ -22,7 +44,26 @@ export default function HomeIntro() {
         <div className="home-intro-title-underline" />
       </div>
       <div className="home-intro-card">
-        <div className="home-intro-card-item">
+        {newsList.map((item: News) => (
+          <div
+            className="home-intro-card-item"
+            key={item._id}
+          >
+            <Image
+              src={item.image}
+              alt="intro-img"
+              width={474}
+              height={294}
+              className="rounded-lg w-[474px] h-auto"
+              priority
+            />
+            <div className="home-intro-card-item-content">
+              <h3>{item.title}</h3>
+              <p>{item.description} </p>
+            </div>
+          </div>
+        ))}
+        {/* <div className="home-intro-card-item">
           <Image
             src={!isMobile ? News1 : News1_mobile}
             alt="intro-img"
@@ -60,7 +101,7 @@ export default function HomeIntro() {
               聖誕節來臨，我們為您準備了特別的禮物！在聖誕期間訂房，不僅有特別優惠，還會送上我們精心準備的聖誕禮物。讓我們一起慶祝這個溫馨的節日吧！
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <Image
         src={!isMobile ? Dot_pc : Dot_mobile}

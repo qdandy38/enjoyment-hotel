@@ -104,7 +104,14 @@ export default function Navigation({ toggle }: Props) {
           variants={liVariant}
           onClick={toggle}
         >
-          <Link href="/login">會員登入</Link>
+          {!token ? (
+            <Link href="/login">會員登入</Link>
+          ) : (
+            <div className="p-4 flex justify-center items-center gap-2">
+              <IC_Profile className="icon fill-white w-[24px] h-[24px] flex-shrink-0" />
+              <span>{userInfo.name}</span>
+            </div>
+          )}
         </motion.li>
         <motion.li
           className="bg-primary hover:bg-primary-120 py-4 px-8 rounded-lg"

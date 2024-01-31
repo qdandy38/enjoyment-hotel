@@ -1,15 +1,13 @@
-import { type StaticImageData } from 'next/image';
-
 interface Props {
   title: string;
   date: string;
   time: string;
   description: string;
-  bgImage: StaticImageData;
+  bgImage: string;
 }
 function HomeFoodCard({ title, date, time, description, bgImage }: Props) {
   const cardBgStyle = {
-    backgroundImage: `url(${bgImage.src})`,
+    backgroundImage: `url(${bgImage})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
   };
