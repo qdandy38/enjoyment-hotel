@@ -11,7 +11,6 @@ export default function HomeBanner() {
   const bgStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImage})`,
     backgroundSize: 'cover',
-    // backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
   };
 
