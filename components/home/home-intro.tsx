@@ -1,16 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import News1 from '@/assets/images/pc/news1.png';
-import News2 from '@/assets/images/pc/news2.png';
-import News3 from '@/assets/images/pc/news3.png';
-import News1_mobile from '@/assets/images/mobile/news1.png';
-import News2_mobile from '@/assets/images/mobile/news2.png';
-import News3_mobile from '@/assets/images/mobile/news3.png';
 import Dot_pc from '@/assets/images/pc/dot.png';
 import Dot_mobile from '@/assets/images/mobile/dot.png';
 import { useCommonCtx } from '@/providers/common-provider';
 import { getNewsList } from '@/apis/home';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '@/store/commonSlice';
 
 interface News {
   _id: string;
@@ -21,14 +17,18 @@ interface News {
   image: string;
 }
 export default function HomeIntro() {
+  const dispatch = useDispatch();
   const { isMobile } = useCommonCtx();
   const [newsList, setNewsList] = useState<News[]>([]);
   const getNews = async () => {
     try {
+      dispatch(setIsLoading(true));
       const res = await getNewsList();
       setNewsList(res.data.result);
     } catch (err) {
       console.error(err);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
   useEffect(() => {

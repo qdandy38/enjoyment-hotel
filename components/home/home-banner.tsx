@@ -1,11 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Banner_pc from '@/assets/images/pc/banner.png';
 import Banner_mobile from '@/assets/images/mobile/banner.png';
 import { useCommonCtx } from '@/providers/common-provider';
 import Button from '@/components/common/button';
 
 export default function HomeBanner() {
+  const router = useRouter();
   const { isMobile } = useCommonCtx();
   const [bgImage, setBgImage] = useState(Banner_pc.src);
   const bgStyle = {
@@ -39,7 +41,10 @@ export default function HomeBanner() {
               </h1>
               <p className="home-banner-content-slogan-subtitle">我們致力於為您提供無與倫比的奢華體驗與優質服務</p>
             </div>
-            <Button btnText="立即訂房" />
+            <Button
+              btnText="立即訂房"
+              fn={() => router.push('/booking')}
+            />
           </div>
         </div>
       </div>

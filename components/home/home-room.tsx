@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Room1_pc from '@/assets/images/pc/room1.png';
 import Room1_mobile from '@/assets/images/mobile/room1.png';
@@ -13,6 +14,7 @@ import Arrow_right from '@/assets/icons/ic_ArrowRight.svg';
 import { useCommonCtx } from '@/providers/common-provider';
 
 export default function HomeRoom() {
+  const router = useRouter();
   const { isMobile } = useCommonCtx();
   const [bgImage, setBgImage] = useState(HomeRoomBg_pc.src);
   const [bgLine, setBgLine] = useState(Bg_Line_pc.src);
@@ -53,7 +55,10 @@ export default function HomeRoom() {
           <p>享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
         </div>
         <h3 className="home-room-info-price">NT$ 10,000</h3>
-        <Button btnText="查看更多" />
+        <Button
+          btnText="查看更多"
+          fn={() => router.push('/booking')}
+        />
         <div className="flex">
           <button className="flex p-4 justify-center items-center rounded-[100px]">
             <Arrow_left className="icon fill-primary w-6 h-6" />

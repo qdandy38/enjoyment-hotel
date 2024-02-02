@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { getRooms } from '@/apis/booking';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '@/store/commonSlice';
 import BookingRoomCard from './booking-room-card';
 type ProvideInfo = {
   title: string;
@@ -23,15 +25,19 @@ export interface RoomInfo {
   updatedAt: string;
 }
 function BookingRoom() {
+  const dispatch = useDispatch();
   const [roomsInfo, setRoomsInfo] = useState<RoomInfo[]>([]);
 
   const getRoomsInfo = async () => {
     try {
+      dispatch(setIsLoading(true));
       const res = await getRooms();
       console.log('rooms', res);
       setRoomsInfo(res.data.result);
     } catch (err) {
       console.error(err);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
 

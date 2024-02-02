@@ -3,23 +3,14 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { type StaticImageData } from 'next/image';
 import Line from '@/assets/images/pc/line.png';
 import Dot_pc from '@/assets/images/pc/dot.png';
 import Dot_mobile from '@/assets/images/mobile/dot.png';
-import Food1_pc from '@/assets/images/pc/food1.png';
-import Food1_mobile from '@/assets/images/mobile/food1.png';
-import Food2_pc from '@/assets/images/pc/food2.png';
-import Food2_mobile from '@/assets/images/mobile/food2.png';
-import Food3_pc from '@/assets/images/pc/food3.png';
-import Food3_mobile from '@/assets/images/mobile/food3.png';
-import Food4_pc from '@/assets/images/pc/food4.png';
-import Food4_mobile from '@/assets/images/mobile/food4.png';
-import Food5_pc from '@/assets/images/pc/food5.png';
-import Food5_mobile from '@/assets/images/mobile/food5.png';
 import { useCommonCtx } from '@/providers/common-provider';
 import HomeFoodCard from './home-food-card';
 import { getCulinaryList } from '@/apis/home';
+import { setIsLoading } from '@/store/commonSlice';
+import { useDispatch } from 'react-redux';
 
 interface FoodCard {
   _id: string;
@@ -31,15 +22,19 @@ interface FoodCard {
   image: string;
 }
 export default function HomeFood() {
+  const dispatch = useDispatch();
   const { isMobile } = useCommonCtx();
   const [culinaryList, setCulinaryList] = useState<FoodCard[]>([]);
 
   const getCulinary = async () => {
     try {
+      dispatch(setIsLoading(true));
       const res = await getCulinaryList();
       setCulinaryList(res.data.result);
     } catch (err) {
       console.error(err);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { motion, type Variants, useAnimation } from 'framer-motion';
 interface Props {
   btnText: string;
+  fn?: () => void;
 }
 const btnContainerVariants: Variants = {
   normal: {
@@ -22,7 +23,7 @@ const btnLineVariants: Variants = {
     backgroundColor: '#fff',
   },
 };
-export default function Button({ btnText }: Props) {
+export default function Button({ btnText, fn }: Props) {
   const controls = useAnimation();
 
   return (
@@ -34,6 +35,7 @@ export default function Button({ btnText }: Props) {
       initial="normal"
       animate={controls}
       transition={{ type: 'spring', duration: 0.8 }}
+      onClick={fn}
     >
       <span>{btnText}</span>
       <motion.div
