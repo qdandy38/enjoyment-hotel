@@ -93,14 +93,16 @@ export default function Navigation({ toggle }: Props) {
         variants={ulVariant}
       >
         <motion.li
-          className="p-4 mb-4"
+          className={`p-4 mb-4 ${segment === 'booking' ? 'text-primary' : 'hover:text-primary'}`}
           variants={liVariant}
           onClick={toggle}
         >
           <Link href="/booking">客房旅宿</Link>
         </motion.li>
         <motion.li
-          className="p-4 mb-4"
+          className={`${
+            segment === 'login' || segment === 'register' ? 'text-primary' : 'hover:text-primary'
+          } p-4 mb-4`}
           variants={liVariant}
           onClick={toggle}
         >

@@ -1,0 +1,140 @@
+@import 'tailwindcss/components';
+@layer components {
+  .booking-room {
+    @apply bg-primary-10
+    px-3
+    py-10
+    lg:py-[120px]
+    flex
+    justify-center
+    items-center;
+    &-content {
+      @apply w-full
+      lg:w-[65%]
+      mx-auto
+      inline-flex
+      flex-col
+      items-start
+      gap-10
+      lg:gap-20;
+      &-heading {
+        @apply flex
+        flex-col
+        items-start
+        gap-2
+        lg:gap-4;
+        p {
+          @apply text-sm
+          lg:text-xl
+          font-bold
+          text-black-80;
+        }
+        h2 {
+          @apply text-primary
+          text-3.5xl
+          lg:text-5xl
+          font-bold
+          tracking-[2.4px];
+        }
+      }
+      &-list {
+        @apply flex
+        flex-col
+        items-start
+        gap-6
+        self-stretch
+        lg:gap-12
+        w-full;
+      }
+    }
+    &-card {
+      @apply flex
+      flex-col
+      lg:flex-row
+      w-full
+      items-stretch;
+      /* 自定義 Swiper 的樣式 */
+      .swiper-button-next,
+      .swiper-button-prev {
+        @apply text-primary;
+      }
+      .swiper-pagination-bullet {
+        @apply bg-primary-40 opacity-100;
+      }
+      .swiper-pagination-bullet-active {
+        @apply bg-primary;
+      }
+      &-content {
+        @apply flex
+        flex-col
+        justify-center
+        items-start
+        p-4
+        lg:p-10
+        flex-shrink-0
+        gap-6
+        lg:gap-10
+        w-full
+        lg:w-[40%]
+        bg-white
+        rounded-b-[20px]
+        lg:rounded-bl-none
+        lg:rounded-r-[20px];
+        &-heading {
+          @apply flex
+          flex-col
+          justify-center
+          items-start
+          gap-2
+          self-stretch;
+          &-title {
+            @apply text-black
+            text-2.5xl
+            lg:text-[40px]
+            font-bold
+            tracking-[2px];
+          }
+          &-subtitle {
+            @apply text-black-80
+            text-sm
+            lg:text-base;
+          }
+        }
+        &-info {
+          @apply flex
+          items-center
+          gap-4;
+          &-container {
+            @apply flex
+            flex-wrap
+            flex-col
+            justify-center
+            items-start
+            w-[100px] 
+            h-[100px]
+            p-4
+            gap-2
+            rounded-lg
+            border
+            border-primary-40;
+          }
+        }
+        &-line {
+          @apply w-full
+          h-[2px]
+          bg-gradient-to-r
+          from-primary
+          to-white;
+        }
+        &-footer {
+          @apply flex
+          justify-between
+          items-center
+          gap-4
+          self-stretch
+          pb-2;
+        }
+      }
+    }
+  }
+}

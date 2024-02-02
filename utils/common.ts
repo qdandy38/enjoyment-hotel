@@ -14,3 +14,7 @@ export function debounce<T>(fun: T, ms = 300) {
     }, ms);
   };
 }
+
+export function formatAmount(amount: number): string {
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

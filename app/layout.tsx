@@ -9,6 +9,8 @@ import PrefetchAddress from '@/components/common/prefetch-address';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import '@/styles/globals.css';
 import '@/styles/index.css';
 
