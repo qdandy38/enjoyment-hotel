@@ -18,7 +18,6 @@ function Loading() {
           animate={{ rotate: 360 }}
           transition={spinTransition}
         />
-        {/* </div> */}
       </div>
     )
   );

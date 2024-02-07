@@ -5,7 +5,8 @@
     flex
     flex-col
     items-start
-    gap-10;
+    gap-10
+    py-4;
     &-heading {
       @apply flex
       flex-col

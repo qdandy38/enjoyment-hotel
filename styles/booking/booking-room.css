@@ -102,6 +102,7 @@
         }
         &-info {
           @apply flex
+          flex-wrap
           items-center
           gap-4;
           &-container {
