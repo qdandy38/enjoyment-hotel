@@ -36,34 +36,35 @@ export default function HomeIntro() {
   }, []);
   return (
     <section className="home-intro">
-      <div className="home-intro-title">
-        <h1>
-          <span>最新</span>
-          <span>消息</span>
-        </h1>
-        <div className="home-intro-title-underline" />
-      </div>
-      <div className="home-intro-card">
-        {newsList.map((item: News) => (
-          <div
-            className="home-intro-card-item"
-            key={item._id}
-          >
-            <Image
-              src={item.image}
-              alt="intro-img"
-              width={474}
-              height={294}
-              className="rounded-lg w-[474px] h-auto"
-              priority
-            />
-            <div className="home-intro-card-item-content">
-              <h3>{item.title}</h3>
-              <p>{item.description} </p>
+      <div className="home-intro-content">
+        <div className="home-intro-title">
+          <h1>
+            <span>最新</span>
+            <span>消息</span>
+          </h1>
+          <div className="home-intro-title-underline" />
+        </div>
+        <div className="home-intro-card">
+          {newsList.map((item: News) => (
+            <div
+              className="home-intro-card-item"
+              key={item._id}
+            >
+              <Image
+                src={item.image}
+                alt="intro-img"
+                width={474}
+                height={294}
+                className="rounded-lg w-[474px] h-auto"
+                priority
+              />
+              <div className="home-intro-card-item-content">
+                <h3>{item.title}</h3>
+                <p>{item.description} </p>
+              </div>
             </div>
-          </div>
-        ))}
-        {/* <div className="home-intro-card-item">
+          ))}
+          {/* <div className="home-intro-card-item">
           <Image
             src={!isMobile ? News1 : News1_mobile}
             alt="intro-img"
@@ -102,17 +103,18 @@ export default function HomeIntro() {
             </p>
           </div>
         </div> */}
+        </div>
+        <Image
+          src={!isMobile ? Dot_pc : Dot_mobile}
+          alt="dot"
+          className="home-intro-dot right-6 top-10 lg:right-[180px] lg:top-[100px]"
+        />
+        <Image
+          src={!isMobile ? Dot_pc : Dot_mobile}
+          alt="dot"
+          className="home-intro-dot left-6 bottom-[-60px] lg:left-[200px] lg:bottom-[-80px]"
+        />
       </div>
-      <Image
-        src={!isMobile ? Dot_pc : Dot_mobile}
-        alt="dot"
-        className="home-intro-dot right-6 top-10 lg:right-[180px] lg:top-[100px]"
-      />
-      <Image
-        src={!isMobile ? Dot_pc : Dot_mobile}
-        alt="dot"
-        className="home-intro-dot left-6 bottom-[-60px] lg:left-[200px] lg:bottom-[-80px]"
-      />
     </section>
   );
 }

@@ -6,14 +6,19 @@
     py-20
     px-3
     lg:py-[120px]
-    lg:px-[312px]
-    bg-primary-10
-    flex
-    flex-col
-    lg:flex-row
-    items-start
-    gap-10
-    lg:gap-20;
+    /* lg:px-[312px] */
+    bg-primary-10;
+    &-content {
+      @apply w-full
+      lg:w-[80%]
+      mx-auto
+      flex
+      flex-col
+      lg:flex-row
+      items-start
+      gap-10
+      lg:gap-20;
+    }
     &-title {
       @apply w-[140px]
       flex
